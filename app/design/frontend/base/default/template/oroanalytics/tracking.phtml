@@ -1,0 +1,43 @@
+<?php
+/**
+ * Oro Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is published at http://opensource.org/licenses/osl-3.0.php.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magecore.com so we can send you a copy immediately
+ *
+ * @category  Oro
+ * @package   Analytics
+ * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
+
+/** @var $this Oro_Analytics_Block_Tracking */
+
+/** @var $helper Oro_Analytics_Helper_Data */
+$helper = Mage::helper('oro_analytics');
+?>
+
+<script type="text/javascript">
+    var _paq = _paq || [];
+    _paq.push(['setUserId', "<?php echo $this->_getUserIdentifier(); ?>"]);
+    _paq.push(['setConversionAttributionFirstReferrer', false]);
+    _paq.push(['trackPageView']);
+
+    <?php echo $this->_getOrderEventsData(); ?>
+    <?php echo $this->_getCheckoutEventsData(); ?>
+    <?php echo $this->_getCartEventsData(); ?>
+    <?php echo $this->_getCustomerEventsData(); ?>
+
+    (function() {
+        var u="<?php echo $helper->getHost(); ?>";
+        _paq.push(['setTrackerUrl', u+'tracking.php']);
+        _paq.push(['setSiteId', '<?php echo $helper->getSiteIdentifier(); ?>']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+        g.defer=true; g.async=true; g.src=u+'bundles/orotracking/js/piwik.min.js'; s.parentNode.insertBefore(g,s);
+    })();
+</script>
