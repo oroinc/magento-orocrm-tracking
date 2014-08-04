@@ -12,11 +12,11 @@
  * to license@magecore.com so we can send you a copy immediately
  *
  * @category  Oro
- * @package   Analytics
+ * @package   Tracking
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
-class Oro_Analytics_Helper_Data extends Mage_Core_Helper_Abstract
+class Oro_Tracking_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const GUEST_USER_IDENTIFIER = 'guest';
 
@@ -25,12 +25,12 @@ class Oro_Analytics_Helper_Data extends Mage_Core_Helper_Abstract
     const EVENT_CHECKOUT_STARTED      = 'user entered checkout';
     const EVENT_ORDER_PLACE_SUCCESS   = 'order successfully placed';
 
-    const XML_PATH_ENABLED         = 'oro/analytics/active';
-    const XML_PATH_HOST            = 'oro/analytics/host';
-    const XML_PATH_SITE_IDENTIFIER = 'oro/analytics/site_identifier';
+    const XML_PATH_ENABLED         = 'oro/tracking/active';
+    const XML_PATH_HOST            = 'oro/tracking/host';
+    const XML_PATH_SITE_IDENTIFIER = 'oro/tracking/site_identifier';
 
     /**
-     * Returns whether analytics is enabled
+     * Returns whether tracking is enabled
      *
      * @return mixed
      */
@@ -40,7 +40,7 @@ class Oro_Analytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Returns host name from config for analytics service
+     * Returns host name from config for tracking service
      *
      * @throws Exception Mismatch of HTTP protocols
      * @return mixed
@@ -58,7 +58,7 @@ class Oro_Analytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Returns site identifier for analytics service
+     * Returns site identifier for tracking service
      *
      * @return string
      */
