@@ -12,7 +12,7 @@
  * to license@magecore.com so we can send you a copy immediately
  *
  * @category  Oro
- * @package   Analytics
+ * @package   Tracking
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -21,7 +21,7 @@
  * @method array getOrderIds()
  * @method void  setOrderIds(array $orderIds)
  */
-class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
+class Oro_Tracking_Block_Tracking extends Mage_Core_Block_Template
 {
     /**
      * Returns user identifier
@@ -43,7 +43,7 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
                 )
             );
         } else {
-            $data['id'] = Oro_Analytics_Helper_Data::GUEST_USER_IDENTIFIER;
+            $data['id'] = Oro_Tracking_Helper_Data::GUEST_USER_IDENTIFIER;
         }
 
         return urldecode(http_build_query($data, '', '; '));
@@ -69,7 +69,7 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
         foreach ($collection as $order) {
             $result[] = sprintf(
                 "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%f' ]);",
-                Oro_Analytics_Helper_Data::EVENT_ORDER_PLACE_SUCCESS,
+                Oro_Tracking_Helper_Data::EVENT_ORDER_PLACE_SUCCESS,
                 $order->getSubtotal()
             );
         }
@@ -98,7 +98,7 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
 
             return sprintf(
                 "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%f' ]);",
-                Oro_Analytics_Helper_Data::EVENT_CHECKOUT_STARTED,
+                Oro_Tracking_Helper_Data::EVENT_CHECKOUT_STARTED,
                 $quote->getSubtotal()
             );
         }
@@ -121,7 +121,7 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
 
             return sprintf(
                 "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%d' ]);",
-                Oro_Analytics_Helper_Data::EVENT_CART_ITEM_ADDED,
+                Oro_Tracking_Helper_Data::EVENT_CART_ITEM_ADDED,
                 $productId
             );
         }
@@ -143,7 +143,7 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
 
             return sprintf(
                 "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', 1 ]);",
-                Oro_Analytics_Helper_Data::EVENT_REGISTRATION_FINISHED
+                Oro_Tracking_Helper_Data::EVENT_REGISTRATION_FINISHED
             );
         }
 
@@ -157,7 +157,7 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        if (!Mage::helper('oro_analytics')->isEnabled()) {
+        if (!Mage::helper('oro_tracking')->isEnabled()) {
             return '';
         }
 

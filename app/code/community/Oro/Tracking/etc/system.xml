@@ -12,14 +12,14 @@
  * to license@magecore.com so we can send you a copy immediately
  *
  * @category Oro
- * @package Analytics
+ * @package Tracking
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 -->
 <config>
     <sections>
-        <oro translate="label" module="oro_analytics">
+        <oro translate="label" module="oro_tracking">
             <label>OroCRM API</label>
             <tab>customer</tab>
             <frontend_type>text</frontend_type>
@@ -28,8 +28,8 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <analytics translate="label">
-                    <label>Oro Analytics</label>
+                <tracking translate="label">
+                    <label>Oro Tracking</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
@@ -63,7 +63,7 @@
                             <show_in_store>1</show_in_store>
                         </host>
                     </fields>
-                </analytics>
+                </tracking>
             </groups>
         </oro>
     </sections>

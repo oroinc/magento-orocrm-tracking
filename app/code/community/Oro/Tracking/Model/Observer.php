@@ -12,11 +12,11 @@
  * to license@magecore.com so we can send you a copy immediately
  *
  * @category  Oro
- * @package   Analytics
+ * @package   Tracking
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
-class Oro_Analytics_Model_Observer
+class Oro_Tracking_Model_Observer
 {
     /**
      * Add order ids into tracking block to render on order place success page
@@ -30,7 +30,7 @@ class Oro_Analytics_Model_Observer
             return;
         }
 
-        $block = Mage::app()->getLayout()->getBlock('oro_analytics');
+        $block = Mage::app()->getLayout()->getBlock('oro_tracking');
         if ($block) {
             $block->setOrderIds($orderIds);
         }
