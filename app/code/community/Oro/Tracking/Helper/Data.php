@@ -54,7 +54,7 @@ class Oro_Tracking_Helper_Data extends Mage_Core_Helper_Abstract
             throw new Exception('Invalid protocol specified, unable to perform tracking');
         }
 
-        return $value;
+        return rtrim($value, '/') . '/';
     }
 
     /**
