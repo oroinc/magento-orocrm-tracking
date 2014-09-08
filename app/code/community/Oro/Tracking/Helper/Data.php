@@ -50,8 +50,8 @@ class Oro_Tracking_Helper_Data extends Mage_Core_Helper_Abstract
         $secure = Mage::app()->getStore()->isCurrentlySecure();
         $value  = $this->_getConfigValue(self::XML_PATH_HOST);
 
-        if ($secure && !strpos($value, 'https:') !== 0) {
-            throw new Exception('Invalid protocol specified, unable to perform tracking');
+        if ($secure && strpos($value, 'https:') !== 0) {
+            throw new Oro_Tracking_Exception_ProtocolMismatchException();
         }
 
         return rtrim($value, '/') . '/';

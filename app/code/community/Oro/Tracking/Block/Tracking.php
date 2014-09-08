@@ -161,6 +161,12 @@ class Oro_Tracking_Block_Tracking extends Mage_Core_Block_Template
             return '';
         }
 
-        return parent::_toHtml();
+        try {
+            return parent::_toHtml();
+        } catch (LogicException $e) {
+            Mage::logException($e);
+
+            return '';
+        }
     }
 }
