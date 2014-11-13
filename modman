@@ -1,0 +1,4 @@
+app/etc/modules/Oro_Tracking.xml                              app/etc/modules/Oro_Tracking.xml
+app/code/community/Oro/Tracking                               app/code/community/Oro/Tracking
+app/design/frontend/base/default/template/orotracking         app/design/frontend/base/default/template/orotracking
+app/design/frontend/base/default/layout/orotracking.xml       app/design/frontend/base/default/layout/orotracking.xml
