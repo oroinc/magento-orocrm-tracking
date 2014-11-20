@@ -117,7 +117,6 @@ class Oro_Tracking_Block_Tracking extends Mage_Core_Block_Template
         $session = Mage::getSingleton('checkout/session');
 
         if ($session->hasData('justAddedProductId')) {
-            $result = array();
             $productId = $session->getData('justAddedProductId');
             $session->unsetData('justAddedProductId');
 
