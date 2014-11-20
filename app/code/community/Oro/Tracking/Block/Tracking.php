@@ -113,20 +113,58 @@ class Oro_Tracking_Block_Tracking extends Mage_Core_Block_Template
      */
     protected function _getCartEventsData()
     {
+        $result = array();
         $session = Mage::getSingleton('checkout/session');
 
         if ($session->hasData('justAddedProductId')) {
             $productId = $session->getData('justAddedProductId');
             $session->unsetData('justAddedProductId');
 
-            return sprintf(
+            $result[] = sprintf(
                 "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%d' ]);",
                 Oro_Tracking_Helper_Data::EVENT_CART_ITEM_ADDED,
                 $productId
             );
+
+            $msgToWrite['event'] = Oro_Tracking_Helper_Data::EVENT_CART_ITEM_ADDED;
+
+            if ($session->hasData('justAddedProductName')) {
+                $productName = $session->getData('justAddedProductName');
+                $session->unsetData('justAddedProductName');
+
+                $msgToWrite['product_name'] = sprintf("Name: %s", $productName);
+            }
+
+            if ($session->hasData('justAddedProductBrandName')) {
+                $brandName = $session->getData('justAddedProductBrandName');
+                $session->unsetData('justAddedProductBrandName');
+
+                $msgToWrite['brand'] = sprintf("Brand: %s", $brandName);
+            }
+
+            if ($session->hasData('justAddedProductCategoryIds')) {
+                $categoryNames = array();
+                $categoryIds = $session->getData('justAddedProductCategoryIds');
+                $session->unsetData('justAddedProductCategoryIds');
+
+                foreach ($categoryIds as $categoryId) {
+                    $category = Mage::getModel('catalog/category');
+                    $category->load($categoryId);
+                    $categoryNames[] = $category->getName();
+                }
+            }
+
+            $categoryNamesString = implode(', ', $categoryNames);
+            $productInfo = sprintf("%s, Category:[%s]", implode(', ', $msgToWrite), $categoryNamesString);
+
+            $result[] = sprintf(
+                "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%s' ]); ",
+                substr($productInfo, 0, 255),
+                $productId
+            );
         }
 
-        return '';
+        return implode(PHP_EOL, $result);
     }
 
     /**
