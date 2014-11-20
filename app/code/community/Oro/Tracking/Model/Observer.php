@@ -57,5 +57,8 @@ class Oro_Tracking_Model_Observer
 
         $session = Mage::getSingleton('checkout/session');
         $session->setData('justAddedProductId', $product->getId());
+        $session->setData('justAddedProductName', $product->getName());
+        $session->setData('justAddedProductBrandName', $product->getAttributeText('manufacturer'));
+        $session->setData('justAddedProductCategoryIds', $product->getCategoryIds());
     }
 }
