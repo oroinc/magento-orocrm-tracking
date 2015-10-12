@@ -1,0 +1,10 @@
+{
+    "name":"orocrm/magento-orocrm-tracking",
+    "type":"magento-module",
+    "license":"OSL-3.0",
+    "homepage":"https://github.com/orocrm/magento-orocrm-tracking",
+    "description":"This extension adds the pre-configured OroCrm tracking script to your Magento Store.",
+    "require":{
+        "magento-hackathon/magento-composer-installer":"*"
+    }
+}
