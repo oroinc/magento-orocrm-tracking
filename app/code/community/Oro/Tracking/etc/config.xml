@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Oro Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is published at http://opensource.org/licenses/osl-3.0.php.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magecore.com so we can send you a copy immediately
+ *
+ * @category Oro
+ * @package Tracking
+ * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
+ * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Oro_Tracking>
+            <version>0.1.3</version>
+        </Oro_Tracking>
+    </modules>
+    <global>
+        <blocks>
+            <oro_tracking>
+                <class>Oro_Tracking_Block</class>
+            </oro_tracking>
+        </blocks>
+        <helpers>
+            <oro_tracking>
+                <class>Oro_Tracking_Helper</class>
+            </oro_tracking>
+        </helpers>
+        <models>
+            <oro_tracking>
+                <class>Oro_Tracking_Model</class>
+            </oro_tracking>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <oro_tracking>
+                    <file>orotracking.xml</file>
+                </oro_tracking>
+            </updates>
+        </layout>
+        <events>
+            <!-- Order place events -->
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <orotracking_order_success>
+                        <class>oro_tracking/observer</class>
+                        <method>onOrderSuccessPageView</method>
+                    </orotracking_order_success>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            <checkout_multishipping_controller_success_action>
+                <observers>
+                    <orotracking_order_success>
+                        <class>oro_tracking/observer</class>
+                        <method>onOrderSuccessPageView</method>
+                    </orotracking_order_success>
+                </observers>
+            </checkout_multishipping_controller_success_action>
+            <sales_order_place_after>
+                <observers>
+                    <orotracking_order_place_before>
+                        <class>oro_tracking/observer</class>
+                        <method>onOrderPlace</method>
+                    </orotracking_order_place_before>
+                </observers>
+            </sales_order_place_after>
+
+            <!-- Registration success events -->
+            <customer_register_success>
+                <observers>
+                    <orotracking_registration_success>
+                        <class>oro_tracking/observer</class>
+                        <method>onRegistrationSuccess</method>
+                    </orotracking_registration_success>
+                </observers>
+            </customer_register_success>
+
+            <!-- Cart item added events -->
+            <checkout_cart_add_product_complete>
+                <observers>
+                    <orotracking_cart_item_add>
+                        <class>oro_tracking/observer</class>
+                        <method>onCartItemAdded</method>
+                    </orotracking_cart_item_add>
+                </observers>
+            </checkout_cart_add_product_complete>
+
+            <!-- Customer logged in event -->
+            <customer_login>
+                <observers>
+                    <orotracking_customer_logged_in>
+                        <class>oro_tracking/observer</class>
+                        <method>onCustomerLoggedIn</method>
+                    </orotracking_customer_logged_in>
+                </observers>
+            </customer_login>
+
+            <!-- Customer logged out event -->
+            <customer_logout>
+                <observers>
+                    <orotracking_customer_logged_out>
+                        <class>oro_tracking/observer</class>
+                        <method>onCustomerLoggedOut</method>
+                    </orotracking_customer_logged_out>
+                </observers>
+            </customer_logout>
+        </events>
+    </frontend>
+</config>
