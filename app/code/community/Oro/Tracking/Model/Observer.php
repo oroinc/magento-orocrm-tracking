@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Oro Inc.
  *
@@ -16,6 +15,7 @@
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
+
 class Oro_Tracking_Model_Observer
 {
     /**
@@ -46,6 +46,23 @@ class Oro_Tracking_Model_Observer
     }
 
     /**
+     * @param Varien_Event_Observer $observer
+     */
+    public function onOrderPlace(Varien_Event_Observer $observer)
+    {
+        /** @var $orderInstance Mage_Sales_Model_Order */
+        $orderInstance = $observer->getOrder();
+
+        /** @var Mage_Sales_Model_Quote $quote */
+        $quote  = Mage::getModel('sales/quote')->load($orderInstance->getQuoteId());
+
+        $method = $quote->getCheckoutMethod(true);
+        if ($method === Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER) {
+            $this->onRegistrationSuccess();
+        }
+    }
+
+    /**
      * Set product ID to session after product has been added
      *
      * @param Varien_Event_Observer $observer
@@ -57,5 +74,18 @@ class Oro_Tracking_Model_Observer
 
         $session = Mage::getSingleton('checkout/session');
         $session->setData('justAddedProductId', $product->getId());
+    }
+
+    public function onCustomerLoggedIn()
+    {
+        $session = Mage::getSingleton('core/session');
+        $session->setData('isJustLoggedIn', true);
+    }
+
+    public function onCustomerLoggedOut()
+    {
+        $coreSession     = Mage::getSingleton('core/session');
+        $customerSession = Mage::getSingleton('customer/session');
+        $coreSession->setData('isJustLoggedOut', $customerSession->getCustomerId());
     }
 }

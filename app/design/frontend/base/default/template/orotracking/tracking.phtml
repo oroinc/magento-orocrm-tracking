@@ -26,12 +26,14 @@ $helper = Mage::helper('oro_tracking');
     var _paq = _paq || [];
     _paq.push(['setUserId', "<?php echo $this->_getUserIdentifier(); ?>"]);
     _paq.push(['setConversionAttributionFirstReferrer', false]);
+
+    <?php echo $this->_getCustomerEventsData(); ?>
+
     _paq.push(['trackPageView']);
 
     <?php echo $this->_getOrderEventsData(); ?>
     <?php echo $this->_getCheckoutEventsData(); ?>
     <?php echo $this->_getCartEventsData(); ?>
-    <?php echo $this->_getCustomerEventsData(); ?>
 
     (function() {
         var u="<?php echo $helper->getHost(); ?>";

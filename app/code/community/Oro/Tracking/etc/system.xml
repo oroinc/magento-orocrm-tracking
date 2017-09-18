@@ -20,7 +20,7 @@
 <config>
     <sections>
         <oro translate="label" module="oro_tracking">
-            <label>OroCRM API</label>
+            <label>OroCRM</label>
             <tab>customer</tab>
             <frontend_type>text</frontend_type>
             <sort_order>600</sort_order>

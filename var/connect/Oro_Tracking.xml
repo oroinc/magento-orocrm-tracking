@@ -1,0 +1,105 @@
+<_>
+   <form_key>GJxTwwuS7qMuRrVx</form_key>
+   <name>Oro_Tracking</name>
+   <channel>community</channel>
+   <version_ids>
+      <version_ids>2</version_ids>
+   </version_ids>
+   <summary>Oro Tracking helps you to better understand your customers by tracking user behavior within your Magento Store and collecting it in OroCRM.</summary>
+   <description>OroCRM is the Open Source CRM for commerce. Its analytic engine allows you to collect user behavior data from websites, and its built-in reporting and segmentation tools provide the variety of ways to utilize the data in order to better understand your customers and improve marketing and sales performance.
+
+This extension adds the pre-configured tracking script to your Magento Store. This script allows out-of-the-box collection of the following data:
+ - Page views
+ - Registration of new users
+ - Items being added to cart
+ - Start of order checkout
+ - Successful order placement
+
+All these events will be recorded in OroCRM with connection to customer identity, except for guest customers.</description>
+   <license>Open Software License (OSL 3.0)</license>
+   <license_uri>http://opensource.org/licenses/osl-3.0.php</license_uri>
+   <version>0.1.3</version>
+   <stability>stable</stability>
+   <notes> - fixed compatibility with PHP 5.2
+ - renamed configuration section from &quot;OroCRM API&quot; to &quot;OroCRM&quot;</notes>
+   <authors>
+      <name>
+         <name>Oro, Inc</name>
+      </name>
+      <user>
+         <user>orocrm</user>
+      </user>
+      <email>
+         <email>info@orocrm.com</email>
+      </email>
+   </authors>
+   <depends_php_min>5.2.13</depends_php_min>
+   <depends_php_max>5.6.0</depends_php_max>
+   <depends>
+      <package>
+         <name>
+            <name/>
+         </name>
+         <channel>
+            <channel/>
+         </channel>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+         <files>
+            <files>  </files>
+         </files>
+      </package>
+      <extension>
+         <name>
+            <name>Core</name>
+         </name>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+      </extension>
+   </depends>
+   <contents>
+      <target>
+         <target>magelocal</target>
+         <target>magecommunity</target>
+         <target>mageetc</target>
+         <target>magedesign</target>
+         <target>magedesign</target>
+      </target>
+      <path>
+         <path/>
+         <path>Oro/Tracking/</path>
+         <path>modules/Oro_Tracking.xml</path>
+         <path>frontend/base/default/layout/orotracking.xml</path>
+         <path>frontend/base/default/template/orotracking/</path>
+      </path>
+      <type>
+         <type>file</type>
+         <type>dir</type>
+         <type>file</type>
+         <type>file</type>
+         <type>dir</type>
+      </type>
+      <include>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+      </include>
+      <ignore>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+      </ignore>
+   </contents>
+</_>

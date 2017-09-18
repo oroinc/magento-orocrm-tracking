@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Oro Inc.
  *
@@ -16,6 +15,7 @@
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
+
 class Oro_Tracking_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const GUEST_USER_IDENTIFIER = 'guest';
@@ -23,7 +23,9 @@ class Oro_Tracking_Helper_Data extends Mage_Core_Helper_Abstract
     const EVENT_REGISTRATION_FINISHED = 'registration';
     const EVENT_CART_ITEM_ADDED       = 'cart item added';
     const EVENT_CHECKOUT_STARTED      = 'user entered checkout';
-    const EVENT_ORDER_PLACE_SUCCESS   = 'order successfully placed';
+    const EVENT_ORDER_PLACE_SUCCESS   = 'order placed';
+    const EVENT_CUSTOMER_LOGIN        = 'user logged in';
+    const EVENT_CUSTOMER_LOGOUT       = 'user logged out';
 
     const XML_PATH_ENABLED         = 'oro/tracking/active';
     const XML_PATH_HOST            = 'oro/tracking/host';

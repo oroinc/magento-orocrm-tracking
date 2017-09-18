@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Oro Inc.
  *
@@ -34,6 +33,7 @@ class Oro_Tracking_Block_Tracking extends Mage_Core_Block_Template
 
         $data = array('id' => null, 'email' => null, 'visitor-id' => Mage::getSingleton('log/visitor')->getId());
         if ($session->isLoggedIn()) {
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = $session->getCustomer();
             $data     = array_merge(
                 $data,
@@ -62,15 +62,15 @@ class Oro_Tracking_Block_Tracking extends Mage_Core_Block_Template
         }
 
         $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', array('in' => $orderIds));
+            ->addFieldToSearchFilter('entity_id', array('in' => $orderIds));
 
         $result = array();
         /** @var $order Mage_Sales_Model_Order */
         foreach ($collection as $order) {
             $result[] = sprintf(
-                "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%f' ]);",
+                "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%s' ]);",
                 Oro_Tracking_Helper_Data::EVENT_ORDER_PLACE_SUCCESS,
-                $order->getSubtotal()
+                $order->getIncrementId()
             );
         }
 
@@ -95,6 +95,8 @@ class Oro_Tracking_Block_Tracking extends Mage_Core_Block_Template
         if ($isCheckoutIndex) {
             /** @var $quote Mage_Sales_Model_Quote */
             $quote = Mage::getModel('checkout/session')->getQuote();
+
+            //$quote->getOrigOrderId()
 
             return sprintf(
                 "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%f' ]);",
@@ -130,24 +132,49 @@ class Oro_Tracking_Block_Tracking extends Mage_Core_Block_Template
     }
 
     /**
-     * Renders information about event on register success
+     * Renders information about event on register/login/logout
      *
      * @return string
      */
     protected function _getCustomerEventsData()
     {
-        $session = Mage::getSingleton('core/session');
+        $result = array();
 
-        if ($session->getData('isJustRegistered')) {
-            $session->unsetData('isJustRegistered');
+        $coreSession = Mage::getSingleton('core/session');
+        if ($coreSession->getData('isJustRegistered')) {
+            $coreSession->unsetData('isJustRegistered');
 
-            return sprintf(
+            $result[] = sprintf(
                 "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', 1 ]);",
                 Oro_Tracking_Helper_Data::EVENT_REGISTRATION_FINISHED
             );
         }
 
-        return '';
+        if ($coreSession->getData('isJustLoggedIn')) {
+            $customerSession = Mage::getModel('customer/session');
+            if ($customerSession->isLoggedIn()) {
+                $coreSession->unsetData('isJustLoggedIn');
+                $result[] = sprintf(
+                    "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', %d ]);",
+                    Oro_Tracking_Helper_Data::EVENT_CUSTOMER_LOGIN,
+                    $customerSession->getCustomerId()
+                );
+            }
+        }
+
+        if ($coreSession->getData('isJustLoggedOut')) {
+            $result[] = sprintf(
+                "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', %d ]);",
+                Oro_Tracking_Helper_Data::EVENT_CUSTOMER_LOGOUT,
+                $coreSession->getData('isJustLoggedOut')
+            );
+            $result[] = "_paq.push(['appendToTrackingUrl', 'new_visit=1']);";
+            $result[] = "_paq.push(['deleteCookies']);";
+
+            $coreSession->unsetData('isJustLoggedOut');
+        }
+
+        return empty($result) ? '' : implode("\n\r", $result);
     }
 
     /**

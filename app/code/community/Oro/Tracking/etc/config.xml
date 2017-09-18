@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Oro_Tracking>
-            <version>0.1.0</version>
+            <version>0.1.3</version>
         </Oro_Tracking>
     </modules>
     <global>
@@ -66,6 +66,14 @@
                     </orotracking_order_success>
                 </observers>
             </checkout_multishipping_controller_success_action>
+            <sales_order_place_after>
+                <observers>
+                    <orotracking_order_place_before>
+                        <class>oro_tracking/observer</class>
+                        <method>onOrderPlace</method>
+                    </orotracking_order_place_before>
+                </observers>
+            </sales_order_place_after>
 
             <!-- Registration success events -->
             <customer_register_success>
@@ -86,6 +94,26 @@
                     </orotracking_cart_item_add>
                 </observers>
             </checkout_cart_add_product_complete>
+
+            <!-- Customer logged in event -->
+            <customer_login>
+                <observers>
+                    <orotracking_customer_logged_in>
+                        <class>oro_tracking/observer</class>
+                        <method>onCustomerLoggedIn</method>
+                    </orotracking_customer_logged_in>
+                </observers>
+            </customer_login>
+
+            <!-- Customer logged out event -->
+            <customer_logout>
+                <observers>
+                    <orotracking_customer_logged_out>
+                        <class>oro_tracking/observer</class>
+                        <method>onCustomerLoggedOut</method>
+                    </orotracking_customer_logged_out>
+                </observers>
+            </customer_logout>
         </events>
     </frontend>
 </config>
